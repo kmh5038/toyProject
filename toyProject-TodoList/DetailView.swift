@@ -11,10 +11,10 @@ struct DetailView: View {
    @State  var todo: Todo
     var body: some View {
         VStack {
-            Text("Todo")
+            Text("Schedule")
                 .font(.title3)
                 .padding()
-            TextField("Enter your schedule", text: $todo.description)
+            Text(todo.description)
                 .padding()
                 .background(Color(uiColor: .secondarySystemBackground))
                 .textFieldStyle(.roundedBorder)

@@ -7,8 +7,8 @@
 
 import Foundation
 import SwiftUI
-
-var todoData: [Todo] = load("sample.json")
+//
+//var todoData1: [Todo] = load("sample.json")
 
 
 func load<T: Decodable>(_ filename: String) -> T {
