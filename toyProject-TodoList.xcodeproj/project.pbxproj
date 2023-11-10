@@ -15,6 +15,7 @@
 		0434CB932AFBBC2D00DA7D76 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0434CB922AFBBC2C00DA7D76 /* sample.json */; };
 		0434CB952AFBBE2C00DA7D76 /* todoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434CB942AFBBE2C00DA7D76 /* todoData.swift */; };
 		0434CB972AFBC2D400DA7D76 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434CB962AFBC2D300DA7D76 /* DetailView.swift */; };
+		047CFC922AFDFB160019210A /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CFC912AFDFB150019210A /* AddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		0434CB922AFBBC2C00DA7D76 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		0434CB942AFBBE2C00DA7D76 /* todoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoData.swift; sourceTree = "<group>"; };
 		0434CB962AFBC2D300DA7D76 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		047CFC912AFDFB150019210A /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				0434CB822AFBBA0C00DA7D76 /* toyProject_TodoListApp.swift */,
 				0434CB842AFBBA0C00DA7D76 /* ContentView.swift */,
 				0434CB962AFBC2D300DA7D76 /* DetailView.swift */,
+				047CFC912AFDFB150019210A /* AddView.swift */,
 				0434CB902AFBBAEA00DA7D76 /* todo.swift */,
 				0434CB942AFBBE2C00DA7D76 /* todoData.swift */,
 				0434CB922AFBBC2C00DA7D76 /* sample.json */,
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047CFC922AFDFB160019210A /* AddView.swift in Sources */,
 				0434CB852AFBBA0C00DA7D76 /* ContentView.swift in Sources */,
 				0434CB952AFBBE2C00DA7D76 /* todoData.swift in Sources */,
 				0434CB912AFBBAEA00DA7D76 /* todo.swift in Sources */,

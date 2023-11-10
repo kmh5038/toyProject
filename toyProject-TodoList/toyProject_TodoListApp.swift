@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct toyProject_TodoListApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+               
         }
     }
 }

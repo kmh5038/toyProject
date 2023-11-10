@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showCompleted = false
-    @State private var todoData: [Todo] = load("sample.json")
+    @State private var todoData: [Todo] = load("sample.json") // Edit모드에서 삭제 적용이 안돼서 전역변수에서 여기로 옮김
+    
+    
     
     var body: some View {
         NavigationStack {
             List{
-        
                 ForEach(todoData, id: \.id) { data in
-                    
                     NavigationLink(destination: DetailView(todo: data)) {
                         Text(data.title)
                             .font(.headline)
@@ -24,12 +24,13 @@ struct ContentView: View {
                 }
                 .onDelete(perform: delte) // 삭제 기능 삽입 (함수를 호출했는데 왜 delte()를 안해줘도 되는것인가?)
                 .onMove{ todoData.move(fromOffsets: $0, toOffset: $1) }
-                
             }
-            .navigationBarItems(leading: EditButton(), trailing: Button(action: {}, label:  { Text("Add") })) // barItem 설정
+            .navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: AddView(), label: { Text("Add") })) // barItem 설정
             .listStyle(.inset)
             .navigationTitle("Todo-List")
             .cornerRadius(10.0)
+            
+            
         }
         .padding()
     }

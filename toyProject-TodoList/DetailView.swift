@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct DetailView: View {
-   @State  var todo: Todo
+    @State  var todo: Todo
+
+    
     var body: some View {
         VStack {
             Text("Schedule")
-                .font(.title3)
+                .font(.headline)
                 .padding()
+                .offset(y: -80) // x , y 축 레이아웃 조절
             Text(todo.description)
                 .padding()
-                .background(Color(uiColor: .secondarySystemBackground))
+                .font(.headline)
                 .textFieldStyle(.roundedBorder)
-            
-            
-            
+                .offset(y: -80)
         }
+
     }
 }
+    
 
 #Preview {
     DetailView(todo: Todo(id: 1, title: "t", description: "d", completed: true))
