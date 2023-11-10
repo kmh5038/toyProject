@@ -19,16 +19,17 @@ struct AddView: View {
                 
                 Text("Title ")
                     .font(.headline)
-                    .kerning(2) // 자간 조절
-                    .offset(y: -30) // 레이아웃 조절
-                TextField("", text: $titleTextField) // height를 늘리고싶은데 안됨
+                    
+                    .offset(y: 10) // 레이아웃 조절
+                TextField("", text: $titleTextField) 
+                    .frame(height: 35)
                     .overlay(RoundedRectangle(cornerRadius: 6)
                         .stroke(Color.black, lineWidth: 1))
                     .padding()
-                    .offset(y: -40)
+                    
                 Text("Schedule")
                     .font(.headline)
-                    .kerning(2)
+                    
                 
                 TextEditor(text: $scheduleTextEditor)
                     .overlay(RoundedRectangle(cornerRadius: 8)
@@ -38,12 +39,15 @@ struct AddView: View {
                 Button("ADD") {
                    
                 }
+                
                 .font(.title2)
                 .kerning(1)
                 .disabled(titleTextField.isEmpty || scheduleTextEditor.isEmpty ? true : false)
             }
+            
           
         }
+        .navigationTitle("Add Schedule")
         
             
     }
