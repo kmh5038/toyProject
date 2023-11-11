@@ -16,22 +16,29 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List{
-                ForEach(todoData, id: \.id) { data in
+                ForEach(todoData.indices, id: \.self) { index in
                     HStack {
-                        Button(action: { // 버튼이 안눌러짐
-                            data.completed == true ? false : true
-                        }, label: {
-                            Image(systemName: data.completed ? "checkmark.circle.fill" : "checkmark.circle")
+                        Button(action: { // 버튼이 안눌러짐 : row에 같은 탭 제스처를 수신하는 View 두개가 있는 경우에 이를 독립적으로 인식하지 않고 동시 작동된다. 이를 해결하기 위해서 버튼스타일을 별도로 지정해서 독립시킨다.
+                            toggleCompleted(at: index)
+                        }
+                               , label: {
+                            Image(systemName: todoData[index].completed ? "checkmark.circle.fill" : "checkmark.circle")
                         })
+                        .buttonStyle(PlainButtonStyle())
+                        
                        
-                        NavigationLink(destination: DetailView(todo: data)) {
-                            Text(data.title)
+                        NavigationLink(destination: DetailView(todo: todoData[index])) {
+                            Text(todoData[index].title)
                                 .font(.headline)
                         }
+                        
+                        
                     }
+                    
                 }
                 .onDelete(perform: delte) // 삭제 기능 삽입 (함수를 호출했는데 왜 delte()를 안해줘도 되는것인가?)
                 .onMove{ todoData.move(fromOffsets: $0, toOffset: $1) }
+                
             }
             .navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: AddView(todoData: $todoData) , label: { Text("Add") })) // barItem 설정
             .listStyle(.inset)
