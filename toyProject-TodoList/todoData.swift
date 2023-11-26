@@ -11,12 +11,8 @@ import SwiftUI
 //var todoData1: [Todo] = load("sample.json")
 
 class Parsing {
-    
-<<<<<<< Updated upstream
-   static func load<T: Decodable>(_ filename: String) -> T {
-=======
     func load<T: Decodable>(_ filename: String) -> T {
->>>>>>> Stashed changes
+
         let data: Data
         
         guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
