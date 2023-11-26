@@ -11,6 +11,7 @@ import SwiftUI
 //var todoData1: [Todo] = load("sample.json")
 
 class Parsing {
+
     func load<T: Decodable>(_ filename: String) -> T {
 
         let data: Data
