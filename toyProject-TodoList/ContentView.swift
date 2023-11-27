@@ -19,16 +19,16 @@ struct ContentView: View {
                 ForEach(todoData, id: \.self) { todo in
                     HStack {
                         Button(action: { // 버튼이 안눌러짐 : row에 같은 탭 제스처를 수신하는 View 두개가 있는 경우에 이를 독립적으로 인식하지 않고 동시 작동된다. 이를 해결하기 위해서 버튼스타일을 별도로 지정해서 독립시킨다.
-                            toggleCompleted(at: todo.id)
+                            toggleCompleted(todo)
                         }
                                , label: {
-                            Image(systemName: todoData[todo.id].completed ? "checkmark.circle.fill" : "checkmark.circle")
+                            Image(systemName: todo.completed ? "checkmark.circle.fill" : "checkmark.circle")
                         })
                         .buttonStyle(PlainButtonStyle())
                         
                        
-                        NavigationLink(destination: DetailView(todo: todoData[todo.id])) {
-                            Text(todoData[todo.id].title)
+                        NavigationLink(destination: DetailView(todo: todo)) {
+                            Text(todo.title)
                                 .font(.headline)
                         }
                         
@@ -57,13 +57,12 @@ struct ContentView: View {
         }
     }
     
-    func toggleCompleted(at index: Int) {
-        todoData[index].completed.toggle()
+    func toggleCompleted(_ todo: Todo) {
+        if let index = todoData.firstIndex(where: { $0.id == todo.id }) {
+            todoData[index].completed.toggle()
+        }
     }
-    /*  func toggleCompleted(_ data: Todo) {
-     data.completed.toggle() // Cannot use mutating member on immutable value: 'data' is a 'let' constant 오류 발생
-     }
-     */
+  
 }
 
 
