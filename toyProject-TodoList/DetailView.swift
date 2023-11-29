@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    @State  var todo: Todo
+    @State var todo: Todo
 
     
     var body: some View {

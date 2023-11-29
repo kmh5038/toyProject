@@ -9,26 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showCompleted = false
-    @State private var todoData: [Todo] = load("sample.json") // Edit모드에서 삭제 적용이 안돼서 전역변수에서 여기로 옮김
+    @State private var todoData: [Todo] = Parsing().load("sample.json") // Edit모드에서 삭제 적용이 안돼서 전역변수에서 여기로 옮김
     
     
     
     var body: some View {
         NavigationStack {
             List{
-                ForEach(todoData.indices, id: \.self) { index in
+                ForEach(todoData, id: \.self) { todo in
                     HStack {
                         Button(action: { // 버튼이 안눌러짐 : row에 같은 탭 제스처를 수신하는 View 두개가 있는 경우에 이를 독립적으로 인식하지 않고 동시 작동된다. 이를 해결하기 위해서 버튼스타일을 별도로 지정해서 독립시킨다.
-                            toggleCompleted(at: index)
+                            toggleCompleted(todo)
                         }
                                , label: {
-                            Image(systemName: todoData[index].completed ? "checkmark.circle.fill" : "checkmark.circle")
+                            Image(systemName: todo.completed ? "checkmark.circle.fill" : "checkmark.circle")
                         })
                         .buttonStyle(PlainButtonStyle())
                         
                        
-                        NavigationLink(destination: DetailView(todo: todoData[index])) {
-                            Text(todoData[index].title)
+                        NavigationLink(destination: DetailView(todo: todo)) {
+                            Text(todo.title)
                                 .font(.headline)
                         }
                         
@@ -57,13 +57,13 @@ struct ContentView: View {
         }
     }
     
-    func toggleCompleted(at index: Int) {
-        todoData[index].completed.toggle()
+    func toggleCompleted(_ todo: Todo) {
+        if let index = todoData.firstIndex(where: { $0.id == todo.id }) {
+            todoData[index].completed.toggle()
+        }
     }
-    
-    
+  
 }
-
 
 
 #Preview {
