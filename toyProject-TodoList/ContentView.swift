@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
     @State private var showCompleted = false
     @State private var todoData: [Todo] = Parsing().load("sample.json") // Edit모드에서 삭제 적용이 안돼서 전역변수에서 여기로 옮김
-    
-    
     
     var body: some View {
         NavigationStack {
@@ -26,13 +25,10 @@ struct ContentView: View {
                         })
                         .buttonStyle(PlainButtonStyle())
                         
-                       
-                        NavigationLink(destination: DetailView(todo: todo)) {
+                        NavigationLink(destination: DetailView(todo: todo, todoData: $todoData)) {
                             Text(todo.title)
                                 .font(.headline)
                         }
-                        
-                        
                     }
                     
                 }
@@ -43,9 +39,6 @@ struct ContentView: View {
             .navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: AddView(todoData: $todoData) , label: { Text("Add") })) // barItem 설정
             .listStyle(.inset)
             .navigationTitle("Todo-List")
-            .cornerRadius(10.0)
-            
-            
         }
         .padding()
     }
@@ -62,9 +55,8 @@ struct ContentView: View {
             todoData[index].completed.toggle()
         }
     }
-  
+    
 }
-
 
 #Preview {
     ContentView()
