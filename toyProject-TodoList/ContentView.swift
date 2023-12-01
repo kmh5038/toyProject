@@ -15,8 +15,6 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.todoTitle, ascending: true)] // 정렬 조건
     ) var todoItems: FetchedResults<TodoItem> // FetchedResults로 데이터를 받습니다.
     
-    
-    
     var body: some View {
         NavigationStack { // 네비게이션이 중첩이 안된거같은데 못찾겠습니다 ㅠㅠ
             List{
@@ -51,7 +49,6 @@ struct ContentView: View {
             let todoItem = todoItems[index]
             viewContext.delete(todoItem)
         }
-        
         do {
             try viewContext.save()
         } catch {
@@ -61,7 +58,6 @@ struct ContentView: View {
     
     func toggleCompleted(_ todoItem: TodoItem) {
         todoItem.todoCompleted.toggle()
-        
         do {
             try viewContext.save()
         } catch {
@@ -76,15 +72,13 @@ struct ContentView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].order = Int16(reverseIndex)
         }
-        
         do {
             try viewContext.save()
         } catch {
             print(error.localizedDescription)
         }
     }
-    
-    
+
 }
 
 
