@@ -14,6 +14,8 @@ struct AddView: View {
     @State private var scheduleTextEditor = ""
     @Environment(\.dismiss) var dismiss // Environment 프로퍼티 래퍼 정확히 무슨 기능인지 모르겠음
     
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -34,7 +36,7 @@ struct AddView: View {
                 Spacer(minLength: 30)
                 
                 Button("ADD") {
-                    saveTodoToCoreData()
+                    saveTodoCoreData()
                 }
                 .font(.title2)
                 .kerning(1)
@@ -45,25 +47,30 @@ struct AddView: View {
     }
     
     
-    private func saveTodoToCoreData() {
-        withAnimation {
-            let newTodo = TodoItem(context: viewContext) // TodoEntity를 생성합니다.
-            newTodo.todoTitle = titleTextField // title을 할당합니다.
-            newTodo.todoDescription = scheduleTextEditor // description을 할당합니다.
-            newTodo.todoCompleted = false // completed 상태를 할당합니다.
-            
-            do {
-                try viewContext.save() // 변경된 내용을 저장합니다.
-                dismiss() // 저장 후에는 View를 닫습니다.
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+    private func saveTodoCoreData() {
+        let newTodo = TodoItem(context: viewContext) // TodoEntity를 생성합니다.
+        newTodo.todoId = Int16(getNextTodoId())
+        newTodo.todoTitle = titleTextField // title을 할당합니다.
+        newTodo.todoDescription = scheduleTextEditor // description을 할당합니다.
+        newTodo.todoCompleted = false // completed 상태를 할당합니다.
+        do {
+            try viewContext.save() // 변경된 내용을 저장합니다.
+            dismiss() // 저장 후에는 View를 닫습니다.
+            print(newTodo.todoId)
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+        
     }
     
-}
+    func getNextTodoId() -> Int {
+            let todoCount = (try? viewContext.fetch(TodoItem.fetchRequest()).count) ?? 0
+            return todoCount 
+        }
 
+    
+}
 
 
 

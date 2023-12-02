@@ -10,10 +10,12 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
+    @FetchRequest( // Core Data 가져오기 요청
         entity: TodoItem.entity(), // 사용할 엔티티
-        sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.todoTitle, ascending: true)] // 정렬 조건
-    ) var todoItems: FetchedResults<TodoItem> // FetchedResults로 데이터를 받습니다.
+        sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.todoId, ascending: true)] // 정렬 조건
+    ) var todoItems: FetchedResults<TodoItem> // FetchedResults로 데이터를 받는다
+    
+    @State private var editMode: EditMode = .inactive
     
     var body: some View {
         NavigationStack { // 네비게이션이 중첩이 안된거같은데 못찾겠습니다 ㅠㅠ
@@ -34,18 +36,20 @@ struct ContentView: View {
                         }
                     }
                 }
-                .onDelete(perform: delete) // 삭제 기능 삽입 (함수를 호출했는데 왜 delte()를 안해줘도 되는것인가?)
+                .onDelete(perform: delete) // 삭제 기능 삽입
                 .onMove(perform: move)
             }
             .navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: AddView() , label: { Text("Add") })) // barItem 설정
             .listStyle(.inset)
             .navigationTitle("Todo-List")
+            .environment(\.editMode, $editMode)
+            
         }
         .padding()
     }
     
     func delete(at offsets: IndexSet) { // 삭제 함수
-        for index in offsets {
+        for index in offsets {  // 질문 : 함수를 실행 할 때 offsets에 어떤게 들어오는지 모르겠습니다.
             let todoItem = todoItems[index]
             viewContext.delete(todoItem)
         }
@@ -66,11 +70,14 @@ struct ContentView: View {
     }
     
     func move(from source: IndexSet, to destination: Int) {
-        var revisedItems: [TodoItem] = todoItems.map { $0 }
+        // 처음에 순서 수정 안 됐던 이유 : FetRequet 정렬 순서를 TodoItem.todoTitle로 해놔서 안됐음 -> TodoItem.todoId로 변경
+        
+        var revisedItems = todoItems.map { $0 }
         revisedItems.move(fromOffsets: source, toOffset: destination)
         
-        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
-            revisedItems[reverseIndex].order = Int16(reverseIndex)
+        // 각각의 위치를 다시 저장합니다.
+        for index in revisedItems.indices {
+            revisedItems[index].todoId = Int16(index)
         }
         do {
             try viewContext.save()
@@ -78,11 +85,10 @@ struct ContentView: View {
             print(error.localizedDescription)
         }
     }
-
 }
 
 
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

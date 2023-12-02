@@ -26,11 +26,12 @@ struct DetailView: View {
                     saveChanges()
                 }
             ))
-            .padding()
             .frame(height: 50)
-            .border(Color.black, width: 1)
+            .overlay(RoundedRectangle(cornerRadius: 6)
+            .stroke(Color.black, lineWidth: 1))
             .font(.headline)
             .offset(y: -80) // x , y 축 레이아웃 조절
+            
             
             Text("Schedule")
                 .font(.title2)
@@ -46,9 +47,9 @@ struct DetailView: View {
                     saveChanges()
                 }
             ))
-            .frame(width: 360, height: 100)
-            .clipShape(RoundedRectangle(cornerRadius: 12)) // 테두리 둥글게 안댐
-            .border(Color.black, width: 1)
+            .frame(width: 340, height: 100)
+            .overlay(RoundedRectangle(cornerRadius: 6)
+            .stroke(Color.black, lineWidth: 1))
             .padding()
             .font(.headline)
             .offset(y: -80)
