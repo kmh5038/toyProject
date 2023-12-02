@@ -61,15 +61,12 @@ struct AddView: View {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
-        
     }
     
     func getNextTodoId() -> Int {
-            let todoCount = (try? viewContext.fetch(TodoItem.fetchRequest()).count) ?? 0
-            return todoCount 
-        }
-
-    
+        let todoCount = (try? viewContext.fetch(TodoItem.fetchRequest()).count) ?? 0
+        return todoCount
+    }
 }
 
 
